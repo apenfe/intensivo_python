@@ -36,3 +36,8 @@ else:
 
 alien_2['x_position']+=x_position
 print(f"Posicion actual {alien_2['x_position']}")
+
+# eliminar pares clave-valor
+print(alien_2)
+del alien_2['x_position']
+print(alien_2)
