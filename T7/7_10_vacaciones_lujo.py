@@ -17,3 +17,4 @@ while polling_active:
 print("\n poll request-----")
 for name, response in respuestas.items():
     print(f"name: {name}, respuesta: {response}.")
+    
