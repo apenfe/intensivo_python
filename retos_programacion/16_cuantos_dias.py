@@ -5,6 +5,7 @@
 # - Si una de las dos cadenas de texto no representa una fecha correcta se lanzará una excepción.
 
 import re
+from datetime import datetime
 
 def fecha_correcta(dia,mes,anio):
 
@@ -36,7 +37,15 @@ def dias(fecha1,fecha2):
 
     # Si el patrón es correcto, verificar si la fecha es válida
     if fecha_correcta(dia,mes,anio) and fecha_correcta(dia2,mes2,anio2):
-        return 1
+
+        # Define las dos fechas
+        fecha1 = datetime(anio, mes, dia)
+        fecha2 = datetime(anio2, mes2, dia2)
+
+        # Calcula la diferencia entre las dos fechas
+        diferencia = fecha2 - fecha1
+        return diferencia
+
     else:
         return None
 
