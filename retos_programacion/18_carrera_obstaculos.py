@@ -8,3 +8,36 @@
 #      - Si hace "run" en "|" (valla), se variará la pista por "/".
 # - La función retornará un Boolean que indique si ha superado la carrera.
 # Para ello tiene que realizar la opción correcta en cada tramo de la pista.
+
+def carrera(acciones,pista):
+
+    if len(acciones) != len(pista):
+        return False
+
+    salida = list(pista)
+
+    for i in range(len(acciones)):
+
+        accion = acciones[i]
+        tramo = pista[i]
+
+        if accion == "run" and tramo == '_':
+            salida[i] = '_'
+        elif accion == "run" and tramo == '|':
+            salida[i] = '/'
+        elif accion == "jump" and tramo == '|':
+            salida[i] = '|'
+        elif accion == "jump" and tramo == '_':
+            salida[i] = 'x'
+
+    print(salida)
+
+    if '/' in salida or 'x' in salida:
+        return False
+    else:
+        return True
+
+if carrera(["run","run","run","jump","run"],"---|-"):
+    print(True)
+else:
+    print(False)
