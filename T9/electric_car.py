@@ -1,26 +1,4 @@
-class Car:
-
-    def __init__(self,make, model, year):
-        self.make = make
-        self.model = model
-        self.year = year
-        self.odometer_reading = 0
-
-    def read_odometer(self):
-        print(f"Este coche ha recorrido {self.odometer_reading} Km")
-
-    def get_descriptive_name(self):
-        log_name = f"{self.year} {self.make} {self.model}"
-        return log_name.title()
-
-    def update_odometer(self,km):
-        self.odometer_reading = km
-
-    def increment_odometer(self,km):
-        self.odometer_reading += km
-
-    def fill_gas_tank(self):
-        print("Llenado el tanque")
+from car import Car
 
 class Battery:
 
