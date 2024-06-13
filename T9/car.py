@@ -19,11 +19,27 @@ class Car:
     def increment_odometer(self,km):
         self.odometer_reading += km
 
-audi = Car("Audi", "A4", "2024")
-print(audi.get_descriptive_name())
-audi.odometer_reading = 23
-audi.read_odometer()
+class Battery:
 
-audi.update_odometer(50)
-audi.increment_odometer(10)
-audi.read_odometer()
+    def __init__(self,battery_size=40):
+        self.battery_size = battery_size
+
+    def describe_battery(self):
+        print(f"This car has a battery of {self.battery_size}")
+
+    def get_range(self):
+        if self.battery_size == 40:
+            range = 150
+        elif self.battery_size == 65:
+            range = 255
+
+        print(f"This car has a battery of {range} km range")
+
+class ElectricCar(Car):
+
+    def __init__(self,make, model, year):
+        super().__init__(make,model,year)
+        self.battery = Battery()
+
+    def fill_gas_tank(self):
+        print("Este coche no usa gasolina")
