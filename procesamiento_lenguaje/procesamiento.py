@@ -132,3 +132,59 @@ negativos = list(negativos)
 neutrales = list(neutrales_dic.keys())
 neutrales = set(neutrales) - set(negativos) - set(positivos)
 neutrales = list(neutrales)
+
+
+def clasificar_sentimiento(tweet, stop, pos, neg, neu):
+    # Eliminar stop words
+    words = tweet.split(' ')
+    words = [word for word in words if word not in stop]
+
+    if len(words) != 0:  # si hay palabras diferentes de stop_words
+        # Realizar conteos
+        coincidencias_positivos = set(positivos).intersection(set(words))
+        coincidencias_negativos = set(negativos).intersection(set(words))
+        coincidencias_neutrales = set(neutrales).intersection(set(words))
+
+        conteo_pos = len(coincidencias_positivos)
+        conteo_neg = len(coincidencias_negativos)
+        conteo_neu = len(coincidencias_neutrales)
+
+        # Calcular proporciones
+        l_tweet = len(words)
+        proporciones = [conteo_pos / l_tweet, conteo_neg / l_tweet, conteo_neu / l_tweet]
+
+        # Clasificar: 0 -> P, 1 -> N, 2 -> NEU
+        maximo = max(proporciones)
+        if proporciones[0] == maximo:
+            cat = 'P'
+        elif proporciones[1] == maximo:
+            cat = 'N'
+        else:
+            cat = 'NEU'
+
+    else:  # si todas las palabras son stop_words
+        cat = 'NEU'
+
+    return cat
+
+# Probemos con algunos datos
+# idx = 1327 # 2464, 23, 87, 92, 1327
+# tweet = x_test[idx]
+# cat = y_test[idx]
+# prediccion = clasificar_sentimiento(tweet, stop_words, positivos, negativos, neutrales)
+
+# print(f'Tweet: {tweet}')
+# print(f'Categoría original: {cat}, predicción: {prediccion}')
+
+# Evaluemos la exactitud total
+N = len(x_test)
+aciertos = [0] * N
+for idx in range(N):
+    tweet = x_test[idx]
+    cat = y_test[idx]
+    prediccion = clasificar_sentimiento(tweet, stop_words, positivos, negativos, neutrales)
+
+    if cat == prediccion:
+        aciertos[idx] = 1
+
+print(f'Porcentaje de aciertos: {100 * sum(aciertos) / N:.2f}%')
