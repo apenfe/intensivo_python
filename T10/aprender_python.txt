@@ -1,0 +1,3 @@
+En python ya se estructuras de flujo
+En python ya se leer archivos
+En python ya se usar diccionarios
