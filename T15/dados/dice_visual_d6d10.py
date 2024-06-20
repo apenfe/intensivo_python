@@ -1,9 +1,10 @@
 from die import Die
 numero = 6
-veces = 1000
+veces = 50000
 
+# creo dado de 6 y 10 caras
 die_1 = Die(numero)
-die_2 = Die(numero)
+die_2 = Die(10)
 
 results = []
 
@@ -23,7 +24,7 @@ print(frecuencies)
 
 import plotly.express as px
 
-title = f"Resultado de lanzar dos dados de {numero} caras {veces} veces"
+title = f"Resultado de lanzar dos dados de {numero} y 10 caras {veces} veces"
 labels = {'x':'Resultado', 'y':'Frecuencia'}
 fig = px.bar(x=poss_results, y=frecuencies, title=title, labels=labels)
 
