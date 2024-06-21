@@ -32,3 +32,37 @@ class Administrador:
     def agregar_tarea(self, tarea):
         '''Agregar una tarea al listado'''
         self._tareas.append(tarea)
+
+    def actualizar_tarea(self, ID):
+        '''Modificar una tarea del listado con base en su ID'''
+        if len(self._tareas) != 0:
+            try:
+                if self._tareas[ID - 1].estado == 'Pendiente':
+                    # Cambiar estado a completada
+                    self._tareas[ID - 1].estado = 'Completada'
+                else:
+                    # Cambiar estado a Pendiente
+                    self._tareas[ID - 1].estado = 'Pendiente'
+            except:
+                print('*** NO EXISTE EL ID ESPECIFICADO ***')
+        else:
+            print('*** NO HAY TAREAS DISPONIBLES ***')
+
+    def eliminar_tarea(self, ID):
+        '''Eliminar una tarea del listado con base en su ID'''
+        if len(self._tareas) != 0:
+            try:
+                self._tareas.pop(ID - 1)
+            except:
+                print('*** NO EXISTE EL ID ESPECIFICADO ***')
+        else:
+            print('*** NO HAY TAREAS DISPONIBLES ***')
+
+    def detalle_tarea(self, ID):
+        if len(self._tareas) != 0:
+            try:
+                self._tareas[ID - 1].mostrar()
+            except:
+                print('*** NO EXISTE EL ID ESPECIFICADO ***')
+        else:
+            print('*** NO HAY TAREAS DISPONIBLES ***')
