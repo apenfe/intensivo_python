@@ -13,18 +13,20 @@ path.write_text(contenido_legible)
 all_eq_dicts = all_eq_data['features']
 print(len(all_eq_dicts))
 
-magnitudes, longitudes, latitudes = [], [], []
+magnitudes, longitudes, latitudes, titulos = [], [], [], []
 
 for diccionario in all_eq_dicts:
     magnitud = diccionario['properties']['mag']
     longitud = diccionario['geometry']['coordinates'][0]
     latitud = diccionario['geometry']['coordinates'][1]
+    titulo = diccionario['properties']['title']
     magnitudes.append(magnitud)
     longitudes.append(longitud)
     latitudes.append(latitud)
+    titulos.append(titulo)
 
 title = 'Terremotos globales'
 fig = px.scatter_geo(lat=latitudes,lon=longitudes, size=magnitudes, title=title,
                      color=magnitudes,color_continuous_scale='Viridis',labels={'color':'Magnitud Ritchter'},
-                     projection='natural earth')
+                     projection='natural earth',hover_name=titulos)
 fig.show()
