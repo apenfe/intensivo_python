@@ -3,7 +3,6 @@ import csv
 from APP_PRODUCTIVIDAD.Administrador import Administrador
 from APP_PRODUCTIVIDAD.Tarea import Tarea
 
-
 class App:
 
     def __init__(self):
