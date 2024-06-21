@@ -1,10 +1,15 @@
 from pathlib import Path
 import json
 import plotly.express as px
+from urllib.request import urlopen
 
-path = Path('eq_data/eq_data_30_day_m1.json')
-contenido= path.read_text()
-all_eq_data = json.loads(contenido)
+path= Path('eq_data/16_8_data.json')
+
+respuesta = urlopen("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_day.geojson")
+respuesta = respuesta.read()
+all_eq_data = json.loads(respuesta)
+contenido_legible = json.dumps(all_eq_data, indent=4)
+path.write_text(contenido_legible)
 
 all_eq_dicts = all_eq_data['features']
 
