@@ -24,5 +24,7 @@ for diccionario in all_eq_dicts:
     latitudes.append(latitud)
 
 title = 'Terremotos globales'
-fig = px.scatter_geo(lat=latitudes,lon=longitudes, size=magnitudes, title=title)
+fig = px.scatter_geo(lat=latitudes,lon=longitudes, size=magnitudes, title=title,
+                     color=magnitudes,color_continuous_scale='Viridis',labels={'color':'Magnitud Ritchter'},
+                     projection='natural earth')
 fig.show()
