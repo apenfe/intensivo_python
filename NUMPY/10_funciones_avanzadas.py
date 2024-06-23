@@ -51,3 +51,31 @@ print(arr_filas.shape)
 print()
 
 # La funcion WHERE
+
+arr = np.random.randn(2,3)
+print(arr)
+
+indices = np.where(arr<=0.5)
+print(indices)
+print()
+resultado = arr[np.where(arr<=0.5)]
+print(resultado)
+print()
+
+# otra forma d euso, es reemplazar los valores que sean coincidencias
+resultado = np.where(arr<=0.5,np.nan,arr) # (condicion, valor si es true, valor si es false)
+print(arr)
+print(resultado)
+print()
+
+# Finalmente la funcion np.random.seed
+
+print(np.random.randint(100)) # siempre un numero diferente
+
+np.random.seed(23)
+numero = np.random.randint(100) # en este caso, cada vez se dara el mismo numero aleatorio
+print(numero)
+print()
+
+np.random.seed(100)
+print(np.random.rand(2,2))
