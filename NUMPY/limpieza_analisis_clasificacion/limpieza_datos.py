@@ -69,4 +69,19 @@ plt.xlabel('Edad')
 plt.ylabel('Nivel de compras €')
 plt.show()
 
+# limpieza de edades: las filas con edades negativas o "muy grandes" se eliminan
+mask_edad = (data[:,0] > 0) & (data[:,0] < 100)
+data_c = data[mask_edad]
+print(data.shape)
+print(data_c.shape)
+
+# limpieza de niveles compra: las filas con niveles negativos o superiores a 5000 se eliminan
+mask_compra = (data_c[:,1] > 0) & (data_c[:,1] < 5000)
+data_c = data_c[mask_compra]
+print(data_c.shape)
+
+plt.scatter(data_c[:,0],data_c[:,1])
+plt.xlabel('Edad')
+plt.ylabel('Nivel de compras €')
+plt.show()
 
