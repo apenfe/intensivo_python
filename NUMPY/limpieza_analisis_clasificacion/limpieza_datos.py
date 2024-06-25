@@ -197,3 +197,37 @@ plt.xlabel('Edad')
 plt.ylabel('Nivel de compras €')
 plt.scatter(ctr_new[:,0],ctr_new[:,1])
 plt.show()
+
+""" Analisis exploratorio final """
+
+# transformar los datos de edad (columna 0) y nivel de compra (columna 1) a la escala origianal
+data_x = data_s[:,0]*(maximos[0]-minimos[0]) + minimos[0]
+data_y = data_s[:,1]*(maximos[1]-minimos[1]) + minimos[1]
+data_os = np.vstack((data_x,data_y)).transpose()
+print(data_os)
+
+# obtener las agrupaciones
+cluster1 = data_os[y==0,:]
+cluster2 = data_os[y==1,:]
+cluster3 = data_os[y==2,:]
+
+def caracterizar_segmento(cluster,title):
+    # obtener minimos/maximos de edad y nivel compras
+    mins = np.min(cluster,axis=0)
+    maxs = np.max(cluster,axis=0)
+
+    # imprimir info
+    print('-'*30)
+    print(f'Segmento: {title}')
+    print(f'\t Rango de edades: {mins[0]:.0f}-{maxs[0]:.0f} años')
+    print(f'\t Niveles de compra: {mins[1]:.0f}-{maxs[1]:.0f} €')
+
+caracterizar_segmento(cluster1,'1')
+caracterizar_segmento(cluster2,'2')
+caracterizar_segmento(cluster3,'3')
+
+plt.scatter(data_os[:,0],data_os[:,1],c=y)
+plt.xlabel('Edad')
+plt.ylabel('Niveles de compra (€)')
+
+plt.show()
