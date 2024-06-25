@@ -143,5 +143,57 @@ print(f'tamaño del dataset: {data_s.shape}')
 print(f'Tamaño del arreglo con las distancias: {distancias.shape}')
 print(f'Ejemplo de una distancia (dato 5): {distancias[5]}')
 
+def clasificar(dists):
+    cat = np.argmin(dists,axis=1)
+    return cat
 
+y = clasificar(distancias)
+idx = 7
+print(f'Punto a clasificar: {data_s[idx,:]}')
+print(f'Centroides: \n{centroides}')
+print(f'Distancia punto-centroides: {distancias[idx,:]}')
+print(f'Resultado clasificacion: {y[idx]}')
 
+def actualizar_centroides(datos,cats):
+    n_cats = cats.max()+1 # numero de categorias
+    centroides = []
+
+    for i in range(n_cats):
+        # tomar datos correspondientes a cada categoria
+        cluster = datos[cats==i,:]
+        # calcular el centroide como el promedio de las coordenadas del cluster
+        centroide = np.mean(cluster,axis=0)
+        # almacenar el centroide obtenido
+        centroides.append(centroide)
+    # retornar los centroides en formato NumPy
+    return np.asarray(centroides)
+
+centroides_nuevos = actualizar_centroides(data_s, y)
+print(f'Centoides iniciales: \n{centroides}')
+print(f'Centroides nuevos: \n{centroides_nuevos}')
+
+SEED = 150  # La semilla del generador aleatorio (reproducibilidad del algoritmo)
+ctr_new = inicializar_centroides(data_s, 3, SEED)  # Inicializar 3 centroides
+delta = 200  # Puede ser cualquier valor relativamente "alto"
+
+while delta > 1e-3:
+    # Calcular distancias de cada dato con respecto a cada centroide
+    dists = calcular_distancias(data_s, ctr_new)
+
+    # Clasificar cada dato
+    y = clasificar(dists)
+
+    # Actualizar centroides
+    ctr_old = ctr_new
+    ctr_new = actualizar_centroides(data_s, y)
+
+    # Actualizar delta
+    diff = ctr_old - ctr_new
+    delta = np.mean(np.linalg.norm(diff))
+    print(delta)
+
+plt.scatter(data_s[:,0],data_s[:,1])
+plt.xlabel('Edad')
+plt.ylabel('Nivel de compras €')
+plt.scatter(ctr_new[:,0],ctr_new[:,1])
+plt.show()
