@@ -85,3 +85,63 @@ plt.xlabel('Edad')
 plt.ylabel('Nivel de compras €')
 plt.show()
 
+""" Algoritmo k-means """
+def escalar_datos(datos):
+    # obtner maximos y minimos en cada columna
+    maxs = np.max(datos,axis=0)
+    mins = np.min(datos,axis=0)
+
+    # escalar cada columna con base en su maximo/minimo correspondiente
+    x_s = (datos[:,0] - mins[0]) / (maxs[0] - mins[0])
+    y_s = (datos[:,1] - mins[1]) / (maxs[1] - mins[1])
+
+    # conformar el nuevo set de datos
+    datos_s = np.vstack((x_s,y_s)) # arreglo de 2 x nº datos
+    datos_s = datos_s.transpose() # arreglo de nº datos x 2
+
+    return maxs,mins,datos_s
+
+maximos, minimos, data_s = escalar_datos(data_c)
+print(f'Maximos originales: {maximos}')
+print(f'Minimos originales: {minimos}')
+
+plt.scatter(data_s[:,0],data_s[:,1])
+plt.xlabel('Edad')
+plt.ylabel('Nivel de compras €')
+plt.show()
+
+# Establcer los centroides iniciales
+def inicializar_centroides(datos,k,seed=None):
+    if seed:
+        # ajustar semilla (Para reproductibilidad)
+        np.random.seed(seed)
+    # escoger tres filas aleatoriamente
+    idx = np.random.choice(datos.shape[0],k,replace=False)
+
+    # seleccionar las coordenadas correspondientes a estas filas
+    centroides = datos[idx,:]
+
+    return centroides
+
+centroides = inicializar_centroides(data_s, 3, 100)
+print(centroides)
+
+# calcular las distancias entre los puntos y los centroides
+def calcular_distancias(datos,centroides):
+    k = centroides.shape[0] # cantidad de centroides
+    N = datos.shape[0] # cantidad de datos (N=368)
+    dists = np.zeros((N,k))
+
+    # calcular la distancia euclidea entre cada centroide y cada punto del set
+    for i, centroide in enumerate(centroides):
+        dists[:,i] = np.linalg.norm(datos-centroide,axis=1)
+
+    return dists
+
+distancias = calcular_distancias(data_s, centroides)
+print(f'tamaño del dataset: {data_s.shape}')
+print(f'Tamaño del arreglo con las distancias: {distancias.shape}')
+print(f'Ejemplo de una distancia (dato 5): {distancias[5]}')
+
+
+
