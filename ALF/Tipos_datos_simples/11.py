@@ -3,3 +3,12 @@
  final de tu cuenta de ahorros. Escribir un programa que comience leyendo la cantidad de dinero depositada
   en la cuenta de ahorros, introducida por el usuario. Después el programa debe calcular y mostrar por pantalla
   la cantidad de ahorros tras el primer, segundo y tercer años. Redondear cada cantidad a dos decimales."""
+
+monto = float(input("Ingrese el valor de la cantidad a invertir: "))
+interes = 4 / 100
+anos = 3
+
+for ano in range(anos):
+    ganancia = monto * interes
+    monto = monto + ganancia
+    print(f'Año {ano+1}, monto: {monto} €')
